@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.orangecoastcollege.cs272.capstone.view.EmployeeLoginScene">
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints maxWidth="211.0" minWidth="10.0" prefWidth="211.0" />
+      <ColumnConstraints maxWidth="120.0" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <children>
+      <Label text="User Name" />
+      <Label text="Password" GridPane.rowIndex="1" />
+      <Label fx:id="UserErrorLabel" prefHeight="17.0" prefWidth="95.0" text="Field Required" textFill="#ee0202" visible="false" GridPane.columnIndex="2" />
+      <Label fx:id="PasswordErrorLabel" text="Field Required" textFill="#f50505" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="UserTF" GridPane.columnIndex="1" />
+      <TextField fx:id="PasswordTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Label prefHeight="17.0" prefWidth="149.0" text="Don't have an account?" />
+            <Label onMouseClicked="#loadSignUp" prefHeight="17.0" prefWidth="59.0" text="Sign Up" textFill="#06c1f5" underline="true" />
+         </children>
+      </HBox>
+      <Label fx:id="LoginErrorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="210.0" text="Log in failed" textFill="#fc0606" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Button mnemonicParsing="false" onAction="#Login" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #04a1fb;" text="Log In" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#Cancel" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: #04a1fb;" text="Cancel" textFill="WHITE" />
+         </children>
+      </HBox>
+   </children>
+</GridPane>

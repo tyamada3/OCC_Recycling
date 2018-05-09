@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.orangecoastcollege.cs272.capstone.view.EmployeeSignUpScene">
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <children>
+      <Label text="Full Name" />
+      <Label text="Email Address" GridPane.rowIndex="2" />
+      <Label text="Password" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#SignUp" prefHeight="27.0" prefWidth="201.0" style="-fx-background-color: #05b2fc;" text="Sign Up" textFill="#fcfcfc" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="NameTF" GridPane.columnIndex="1" />
+      <TextField fx:id="EmailTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="PasswordTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="NameErrorLabel" text="Field Required" textFill="#f50505" visible="false" GridPane.columnIndex="2" />
+      <Label fx:id="EmailErrorLabel" text="Field Required" textFill="#f80707" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label fx:id="PasswordErrorLabel" text="Field Required" textFill="#f80303" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="416.0" text="By signing up, you agree to our Terms $ Privacy Policy" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="6">
+         <children>
+            <Label prefHeight="17.0" prefWidth="164.0" text="Already have an account?" />
+            <Label onMouseClicked="#loadSignIn" text="Sign In" textFill="#05b2fc" underline="true" />
+         </children>
+      </HBox>
+      <Label fx:id="SignUpErrorLabel" alignment="CENTER" prefHeight="17.0" prefWidth="420.0" text="Sign Up Failed" textFill="#ee0303" visible="false" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <Label text="User Name" GridPane.rowIndex="1" />
+      <Label fx:id="UserErrorLabel" text="Field Required" textFill="#e80505" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="UserTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   </children>
+</GridPane>
