@@ -15,6 +15,7 @@ public class Controller {
 
 	private static final String DB_NAME = "occ_recycling.db";
 
+	// Steven edited this (well actually Mike did)
 
 	// For Customer Table
 	private static final String CUSTOMER_TABLE_NAME = "customer";
