@@ -22,6 +22,7 @@ public class Controller {
 	private static final String[] CUSTOMER_FIELD_NAMES = {"_id", "name",  "user", "role", "email"};
 	private static final String[] CUSTOMER_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "TEXT", "TEXT", "TEXT"};
 
+	
 
 	private Customer mCurrentUser;
 	private DBModel mCustomerDB;
