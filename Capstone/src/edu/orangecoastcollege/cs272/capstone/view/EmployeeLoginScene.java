@@ -44,7 +44,16 @@ public class EmployeeLoginScene {
 		if(UserErrorLabel.isVisible() || PasswordErrorLabel.isVisible())
 			return false;
 		
-		//String result = controller.signIn(user, password);
+		String result = controller.employeeLogin(user, password);
+		
+		if (result.equalsIgnoreCase("SUCCESS")) {
+			LoginErrorLabel.setVisible(false);
+			ViewNavigator.loadScene("Employee Timesheet", ViewNavigator.EMPLOYEE_TIME_SCENE);
+			return true;
+		}
+		
+		LoginErrorLabel.setText(result);
+		LoginErrorLabel.setVisible(true);
 		
 		return true;
 		

@@ -45,7 +45,16 @@ public class CustomerLoginScene {
 		if(UserErrorLabel.isVisible() || PasswordErrorLabel.isVisible())
 			return false;
 		
-		String result = controller.customerSignIn(user, password);
+		String result = controller.customerLogin(user, password);
+		
+		if (result.equalsIgnoreCase("SUCCESS")) {
+			LoginErrorLabel.setVisible(false);
+			ViewNavigator.loadScene("Welcome to the OCC Recycling Center", ViewNavigator.CUSTOMER_SCENE);
+			return true;
+		}
+		LoginErrorLabel.setText(result);
+		LoginErrorLabel.setVisible(true);
+		
 		
 		return true;
 		

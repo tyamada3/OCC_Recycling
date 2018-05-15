@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import edu.orangecoastcollege.cs272.capstone.model.Customer;
 import edu.orangecoastcollege.cs272.capstone.model.DBModel;
+import edu.orangecoastcollege.cs272.capstone.model.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,17 +18,24 @@ public class Controller {
 
 	// Steven edited this (well actually Mike did)
 
-	// For Customer Table
+	// For Customer Table to login
 	private static final String CUSTOMER_TABLE_NAME = "customer";
-	private static final String[] CUSTOMER_FIELD_NAMES = {"_id", "name",  "user", "role", "email"};
-	private static final String[] CUSTOMER_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "TEXT", "TEXT", "TEXT"};
+	private static final String[] CUSTOMER_FIELD_NAMES = {"_id", "name",  "user", "role", "email", "password"};
+	private static final String[] CUSTOMER_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"};
 
-	
-
-	private Customer mCurrentUser;
+	private Customer mCurrentCustomer;
 	private DBModel mCustomerDB;
+	
+	// For Employee Table to login
+	private static final String EMPLOYEE_TABLE_NAME = "employee";
+	private static final String[] EMPLOYEE_FIELD_NAMES = {"_id", "name",  "user", "role", "email", "password"};
+	private static final String[] EMPLOYEE_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"};
+
+	private Employee mCurrentEmployee;
+	private DBModel mEmployeeDB;
 
 	private ObservableList<Customer> mAllCustomersList;
+	private ObservableList<Employee> mAllEmployeesList;
 
 	private Controller() {}
 
@@ -37,14 +45,14 @@ public class Controller {
 
 			theOne = new Controller();
 			theOne.mAllCustomersList = FXCollections.observableArrayList();
-
+			theOne.mAllEmployeesList = FXCollections.observableArrayList();
 
 			try {
-				// To create User Table
+				// To create Customer Table
 				theOne.mCustomerDB = new DBModel(DB_NAME, CUSTOMER_TABLE_NAME, CUSTOMER_FIELD_NAMES, CUSTOMER_FIELD_TYPES);
-				ArrayList<ArrayList<String>> resultsList = theOne.mCustomerDB.getAllRecords();
+				ArrayList<ArrayList<String>> customerResultsList = theOne.mCustomerDB.getAllRecords();
 
-				for (ArrayList<String> values : resultsList)
+				for (ArrayList<String> values : customerResultsList)
 				{
 
 					int id = Integer.parseInt(values.get(0));
@@ -52,12 +60,30 @@ public class Controller {
 					String user = values.get(2);
 					String role = values.get(3);
 					String email = values.get(4);
+					String password = values.get(5);
 
 
-					theOne.mAllCustomersList.add(new Customer(id, name, user, role, email));
+					theOne.mAllCustomersList.add(new Customer(id, name, user, role, email, password));
 
 				}
-
+				
+				// To create Employee Table
+				theOne.mEmployeeDB = new DBModel(DB_NAME, EMPLOYEE_TABLE_NAME, EMPLOYEE_FIELD_NAMES, EMPLOYEE_FIELD_TYPES);
+				ArrayList<ArrayList<String>> employeeResultsList = theOne.mEmployeeDB.getAllRecords();
+				
+				for(ArrayList<String> values : employeeResultsList) {
+					
+					int id = Integer.parseInt(values.get(0));
+					String name = values.get(1);
+					String user = values.get(2);
+					String role = values.get(3);
+					String email = values.get(4);
+					String password = values.get(5);
+					
+					theOne.mAllEmployeesList.add(new Employee(id, name, user, role, email, password));
+					
+				}
+				
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -72,7 +98,7 @@ public class Controller {
 
 	}
 
-	public String customerSignIn(String userName, String password) {
+	public String customerLogin(String userName, String password) {
 
 		for(Customer customer : theOne.mAllCustomersList) {
 
@@ -81,15 +107,15 @@ public class Controller {
 				try {
 
 					ArrayList<ArrayList<String>> userResults = theOne.mCustomerDB.getRecord(String.valueOf(customer.getmId()));
-					String storedPassword = userResults.get(0).get(4);
+					String storedPassword = userResults.get(0).get(5);
 					if(password.equals(storedPassword)){
 
-                        mCurrentUser = customer;
+                        mCurrentCustomer = customer;
                         return "SUCCESS";
 
-                    }else
-                        return "Incorrect email and/or password. Please try again";
-
+                    }else {
+                         return "Wrong password";
+                    }
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -99,7 +125,7 @@ public class Controller {
 
 		}
 
-		return "Email address not found.  Please try again.";
+		return "Wrong user name or/and password";
 	}
 
 	public String customerSignUp(String name, String user, String email, String password) {
@@ -117,11 +143,6 @@ public class Controller {
 		if(!isValidPassword(password))
 		    return "Password must be at least 8 characters, including 1 upper case letter, 1 number and 1 symbol.";
 
-		//To check if the userName is valid
-		//Fixing bug
-		//if(!isValidUserName(user))
-			//return "White Space is not allowed for user name";
-
 		//To check if the userName is already taken
 		for(Customer customer : theOne.mAllCustomersList)
 			if(user.equalsIgnoreCase(customer.getmUser()))
@@ -133,8 +154,8 @@ public class Controller {
 
 			int id = theOne.mCustomerDB.createRecord(Arrays.copyOfRange(CUSTOMER_FIELD_NAMES, 1, CUSTOMER_FIELD_NAMES.length), values);
 
-            theOne.mCurrentUser = new Customer(id, name, user, "user", email);
-            theOne.mAllCustomersList.add(theOne.mCurrentUser);
+            theOne.mCurrentCustomer = new Customer(id, name, user, "user", email, password);
+            theOne.mAllCustomersList.add(theOne.mCurrentCustomer);
             System.out.println(theOne.mAllCustomersList);
 
 		} catch (SQLException e) {
@@ -145,6 +166,76 @@ public class Controller {
 
 		return "SUCCESS";
 	}
+	
+	public String employeeLogin(String userName, String password) {
+
+		for(Employee employee : theOne.mAllEmployeesList) {
+
+			if(employee.getmUser().equalsIgnoreCase(userName)) {
+
+				try {
+
+					ArrayList<ArrayList<String>> userResults = theOne.mEmployeeDB.getRecord(String.valueOf(employee.getmId()));
+					String storedPassword = userResults.get(0).get(5);
+					if(password.equals(storedPassword)){
+
+                        mCurrentEmployee = employee;
+                        return "SUCCESS";
+
+                    }else {
+                         return "Wrong password";
+                    }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+		}
+
+		return "Wrong user name or/and password";
+	}
+	
+	public String employeeSignUp(String name, String user, String email, String password) {
+
+		//To check if the email is valid
+		if(!isValidEmail(email))
+			return "Email address is not valid. Please try again.";
+
+		//To check if the email is already taken
+		for(Employee employee: theOne.mAllEmployeesList)
+			if(email.equalsIgnoreCase(employee.getmEmail()))
+				return "Email address already used. Please sign in or use different address.";
+
+		//To check if the password is valid
+		if(!isValidPassword(password))
+		    return "Password must be at least 8 characters, including 1 upper case letter, 1 number and 1 symbol.";
+
+		//To check if the userName is already taken
+		for(Employee employee : theOne.mAllEmployeesList)
+			if(user.equalsIgnoreCase(employee.getmUser()))
+				return "User name is already taken. Please use different user name";
+
+		String[] values = {name, user, "employee", email, password};
+
+		try {
+
+			int id = theOne.mEmployeeDB.createRecord(Arrays.copyOfRange(EMPLOYEE_FIELD_NAMES, 1, EMPLOYEE_FIELD_NAMES.length), values);
+
+            theOne.mCurrentEmployee = new Employee(id, name, user, "employee", email, password);
+            theOne.mAllEmployeesList.add(theOne.mCurrentEmployee);
+            System.out.println(theOne.mAllEmployeesList);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return "SUCCESS";
+	}
+	
 
 	public boolean isValidEmail(String email){
 		return email.matches(
@@ -161,13 +252,9 @@ public class Controller {
         // At least one upper case letter
         // At least one special character !@#$%^&*()_+\-=[]{};':"\|,.<>/?
         // At least 8 characters long, but no more than 16
-        return password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\\\|,.<>\\/?]).{8,16}$");
+    	return password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\\\|,.<>\\/?]).{8,16}$");
     }
 
-	public boolean isValidUserName(String userName) {
-
-		return userName.matches("(?=\\\\S+$)");
-
-	}
+	
 
 }

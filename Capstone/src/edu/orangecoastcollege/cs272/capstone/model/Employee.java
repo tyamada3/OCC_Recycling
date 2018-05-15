@@ -1,7 +1,7 @@
 package edu.orangecoastcollege.cs272.capstone.model;
 
-public class Customer {
-
+public class Employee {
+	
 	private int mId;
 	private String mName;
 	private String mUser;
@@ -9,78 +9,51 @@ public class Customer {
 	private String mEmail;
 	private String mPassword;
 	
-	
-	public Customer(int Id, String Name, String User, String Role, String Email, String Password) {
+	public Employee(int mId, String mName, String mUser, String mRole, String mEmail, String mPassword) {
 		super();
-		this.mId = Id;
-		this.mName = Name;
-		this.mUser = User;
-		this.mRole = Role;
-		this.mEmail = Email;
-		this.mPassword = Password;
+		this.mId = mId;
+		this.mName = mName;
+		this.mUser = mUser;
+		this.mRole = mRole;
+		this.mEmail = mEmail;
+		this.mPassword = mPassword;
 	}
-
-
 	public int getmId() {
 		return mId;
 	}
-
-
 	public void setmId(int mId) {
 		this.mId = mId;
 	}
-
-
 	public String getmName() {
 		return mName;
 	}
-
-
 	public void setmName(String mName) {
 		this.mName = mName;
 	}
-
-
 	public String getmUser() {
 		return mUser;
 	}
-
-
 	public void setmUser(String mUser) {
 		this.mUser = mUser;
 	}
-
-
 	public String getmRole() {
 		return mRole;
 	}
-
-
 	public void setmRole(String mRole) {
 		this.mRole = mRole;
 	}
-
-
 	public String getmEmail() {
 		return mEmail;
 	}
-
-
 	public void setmEmail(String mEmail) {
 		this.mEmail = mEmail;
 	}
-
-
 	public String getmPassword() {
 		return mPassword;
 	}
-
-
 	public void setmPassword(String mPassword) {
 		this.mPassword = mPassword;
 	}
-
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,8 +66,6 @@ public class Customer {
 		result = prime * result + ((mUser == null) ? 0 : mUser.hashCode());
 		return result;
 	}
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -103,7 +74,7 @@ public class Customer {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Customer other = (Customer) obj;
+		Employee other = (Employee) obj;
 		if (mEmail == null) {
 			if (other.mEmail != null)
 				return false;
@@ -133,15 +104,12 @@ public class Customer {
 			return false;
 		return true;
 	}
-
-
 	@Override
 	public String toString() {
-		return "Customer [mId=" + mId + ", mName=" + mName + ", mUser=" + mUser + ", mRole=" + mRole + ", mEmail="
+		return "Employee [mId=" + mId + ", mName=" + mName + ", mUser=" + mUser + ", mRole=" + mRole + ", mEmail="
 				+ mEmail + ", mPassword=" + mPassword + "]";
 	}
 	
-
-   
+	
 
 }

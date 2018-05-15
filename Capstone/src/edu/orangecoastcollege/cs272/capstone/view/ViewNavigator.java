@@ -14,6 +14,7 @@ public class ViewNavigator {
 	public static final String EMPLOYEE_LOGIN_SCENE = "EmployeeLoginScene.fxml";
 	public static final String EMPLOYEE_SIGNUP_SCENE = "EmployeeSignUpScene.fxml";
 	public static final String CUSTOMER_SCENE = "CustomerScene.fxml";
+	public static final String EMPLOYEE_TIME_SCENE = "EmployeeTimeScene.fxml";
 	
 	public static Stage mainStage;
 	

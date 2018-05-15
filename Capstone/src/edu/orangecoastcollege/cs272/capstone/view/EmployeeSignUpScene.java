@@ -50,13 +50,12 @@ public class EmployeeSignUpScene {
 		if(NameErrorLabel.isVisible() || EmailErrorLabel.isVisible() || PasswordErrorLabel.isVisible() || UserErrorLabel.isVisible())
 			return false;
 		
-		//String result = controller.signUp(name, user, email, password);
-		String result = "Success";
+		String result = controller.employeeSignUp(name, user, email, password);
 		
 		if(result.equalsIgnoreCase("SUCCESS")) {
 			
 			SignUpErrorLabel.setVisible(false);
-			//ViewNavigator.loadScene("Employee", ViewNavigator.EMPLOYEE_SCENE);
+			ViewNavigator.loadScene("Employee Timesheet", ViewNavigator.EMPLOYEE_TIME_SCENE);
 			return true;
 			
 		}
