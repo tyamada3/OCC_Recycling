@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.orangecoastcollege.cs272.capstone.model.Customer;
+import edu.orangecoastcollege.cs272.capstone.model.CustomerRecord;
 import edu.orangecoastcollege.cs272.capstone.model.DBModel;
 import edu.orangecoastcollege.cs272.capstone.model.Employee;
 import javafx.collections.FXCollections;
@@ -34,8 +35,18 @@ public class Controller {
 	private Employee mCurrentEmployee;
 	private DBModel mEmployeeDB;
 
+	
+	// For Customer Record Table
+	private static final String CUSTOMER_RECORD_TABLE_NAME = "customerRecord";
+	private static final String[] CUSTOMER_RECORD_FIELD_NAMES = {"_id", "user", "plastic", "aluminum", "glass", "money"};
+	private static final String[] CUSTOMER_RECORD_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "REAL", "REAL", "REAL", "REAL"};
+	
+	private CustomerRecord mCurrentRecord;
+	private DBModel mCustomerRecordDB;
+	
 	private ObservableList<Customer> mAllCustomersList;
 	private ObservableList<Employee> mAllEmployeesList;
+	private ObservableList<CustomerRecord> mAllCustomerRecordsList;
 
 	private Controller() {}
 
@@ -46,6 +57,7 @@ public class Controller {
 			theOne = new Controller();
 			theOne.mAllCustomersList = FXCollections.observableArrayList();
 			theOne.mAllEmployeesList = FXCollections.observableArrayList();
+			theOne.mAllCustomerRecordsList = FXCollections.observableArrayList();
 
 			try {
 				// To create Customer Table
@@ -81,6 +93,23 @@ public class Controller {
 					String password = values.get(5);
 					
 					theOne.mAllEmployeesList.add(new Employee(id, name, user, role, email, password));
+					
+				}
+				
+				// To create Customer Record Table
+				theOne.mCustomerRecordDB = new DBModel(DB_NAME, CUSTOMER_RECORD_TABLE_NAME, CUSTOMER_RECORD_FIELD_NAMES, CUSTOMER_RECORD_FIELD_TYPES);
+				ArrayList<ArrayList<String>> customerRecordResultsList = theOne.mCustomerRecordDB.getAllRecords();
+				
+				for(ArrayList<String> values : customerRecordResultsList) {
+					
+					int id = Integer.parseInt(values.get(0));
+					String user = values.get(1);
+					double plastic = Double.parseDouble(values.get(2));
+					double aluminum = Double.parseDouble(values.get(3));
+					double glass = Double.parseDouble(values.get(4));
+					double money = Double.parseDouble(values.get(5));
+					
+					theOne.mAllCustomerRecordsList.add(new CustomerRecord(id, user, plastic, aluminum, glass, money));
 					
 				}
 				
@@ -199,6 +228,8 @@ public class Controller {
 	
 	public String employeeSignUp(String name, String user, String email, String password) {
 
+		
+		
 		//To check if the email is valid
 		if(!isValidEmail(email))
 			return "Email address is not valid. Please try again.";
@@ -236,6 +267,54 @@ public class Controller {
 		return "SUCCESS";
 	}
 	
+	public String recordCustomer(String user, double plastic, double aluminum, double glass, double money) {
+		
+		/* if record exists, update. else create record
+		for(CustomerRecord c : theOne.mAllCustomerRecordsList) {
+		
+			if(c.getUser().equalsIgnoreCase(user)) {
+				
+				String[] values = {user, String.valueOf(plastic), String.valueOf(aluminum), String.valueOf(glass), String.valueOf(money)};
+
+				try {
+
+					int id = theOne.mCustomerRecordDB.createRecord(Arrays.copyOfRange(CUSTOMER_RECORD_FIELD_NAMES, 1, CUSTOMER_RECORD_FIELD_NAMES.length), values);
+
+					theOne.mCurrentRecord = new CustomerRecord(id, user, plastic, aluminum, glass, money);
+					theOne.mAllCustomerRecordsList.add(theOne.mCurrentRecord);
+					System.out.println(theOne.mAllCustomerRecordsList);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}else {
+				
+				double totalPlastic = c.getPlastic() + plastic;
+				double totalAluminum = c.getAluminum() + aluminum;
+				double totalGlass = c.getGlass() + glass;
+				double totalMoney = c.getMoney() + money;
+				
+				String[] values = {user, String.valueOf(totalPlastic), String.valueOf(totalAluminum), String.valueOf(totalGlass), String.valueOf(totalMoney)};
+				System.out.println(values);
+				
+				try {
+					
+					theOne.mCustomerRecordDB.updateRecord(user, CUSTOMER_RECORD_FIELD_NAMES, values);
+					System.out.println(theOne.mAllCustomerRecordsList);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}// for ends
+		
+		*/
+		return "";
+		
+	}
 
 	public boolean isValidEmail(String email){
 		return email.matches(

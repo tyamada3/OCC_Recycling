@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" vgap="12.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.orangecoastcollege.cs272.capstone.view.CustomerScene">
@@ -29,21 +30,30 @@
       <Label alignment="CENTER" prefHeight="17.0" prefWidth="119.0" text="Aluminum:" GridPane.rowIndex="2" />
       <Label alignment="CENTER" prefHeight="17.0" prefWidth="118.0" text="Glass:" GridPane.rowIndex="3" />
       <Label alignment="CENTER" prefHeight="17.0" prefWidth="119.0" text="Total donated:" GridPane.rowIndex="4" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Amount earned from plastic" GridPane.columnIndex="3" />
-      <Label text="Amount earned from aluminum" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Label text="Amount earned from glass" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <Label text="Total earned" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <Label text="Label" GridPane.columnIndex="4" />
-      <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-      <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-      <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <Label text="Total donated" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-      <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Clear" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-      <Label prefHeight="17.0" prefWidth="96.0" text="Name" GridPane.columnIndex="1" />
+      <TextField fx:id="PlasticTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="AluminumTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="GlassTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="Amount earned from plastic" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Label text="Amount earned from aluminum" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label text="Amount earned from glass" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Label text="Total earned" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <Label fx:id="PlasticAmountLabel" prefHeight="17.0" prefWidth="165.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <Label fx:id="AluminumAmountLabel" prefHeight="17.0" prefWidth="103.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <Label fx:id="GlassAmountLabel" prefHeight="17.0" prefWidth="107.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Label fx:id="TotalAmountLabel" prefHeight="17.0" prefWidth="113.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Label fx:id="UserLabel" prefHeight="17.0" prefWidth="96.0" text="Name" GridPane.columnIndex="1" />
+      <Button mnemonicParsing="false" onAction="#DonationsChart" prefHeight="27.0" prefWidth="123.0" text="Donations Chart" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#LogOut" prefHeight="27.0" prefWidth="71.0" text="Log out" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Button mnemonicParsing="false" onAction="#Calculate" prefHeight="27.0" prefWidth="96.0" text="Calculate" />
+            <Button mnemonicParsing="false" onAction="#Clear" prefHeight="27.0" prefWidth="100.0" text="Clear" />
+         </children>
+      </HBox>
+      <Label fx:id="PlasticErrorLabel" prefHeight="17.0" prefWidth="97.0" text="Field Required" textFill="#f80707" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="AluminumErrorLabel" prefHeight="17.0" prefWidth="103.0" text="Field Required" textFill="#f20303" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label fx:id="GlassErrorLabel" prefHeight="17.0" prefWidth="102.0" text="Field Required" textFill="#f50606" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label fx:id="TotalErrorLabel" prefHeight="17.0" prefWidth="120.0" text="Field Required" textFill="#f50000" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Label fx:id="MaterialsLabel" prefHeight="17.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
 </GridPane>
