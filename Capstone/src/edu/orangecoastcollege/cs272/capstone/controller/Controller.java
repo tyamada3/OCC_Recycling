@@ -26,7 +26,7 @@ public class Controller {
 
 	public Customer mCurrentCustomer;
 	private DBModel mCustomerDB;
-	
+
 	// For Employee Table to login
 	private static final String EMPLOYEE_TABLE_NAME = "employee";
 	private static final String[] EMPLOYEE_FIELD_NAMES = {"_id", "name",  "user", "role", "email", "password"};
@@ -35,15 +35,15 @@ public class Controller {
 	private Employee mCurrentEmployee;
 	private DBModel mEmployeeDB;
 
-	
+
 	// For Customer Record Table
 	private static final String CUSTOMER_RECORD_TABLE_NAME = "customerRecord";
 	private static final String[] CUSTOMER_RECORD_FIELD_NAMES = {"_id", "plastic", "aluminum", "glass", "money"};
 	private static final String[] CUSTOMER_RECORD_FIELD_TYPES = {"INTEGER PRIMARY KEY", "REAL", "REAL", "REAL", "REAL"};
-	
-	private CustomerRecord mCurrentRecord;
+
+	public CustomerRecord mCurrentRecord;
 	private DBModel mCustomerRecordDB;
-	
+
 	private ObservableList<Customer> mAllCustomersList;
 	private ObservableList<Employee> mAllEmployeesList;
 	private ObservableList<CustomerRecord> mAllCustomerRecordsList;
@@ -78,40 +78,40 @@ public class Controller {
 					theOne.mAllCustomersList.add(new Customer(id, name, user, role, email, password));
 
 				}
-				
+
 				// To create Employee Table
 				theOne.mEmployeeDB = new DBModel(DB_NAME, EMPLOYEE_TABLE_NAME, EMPLOYEE_FIELD_NAMES, EMPLOYEE_FIELD_TYPES);
 				ArrayList<ArrayList<String>> employeeResultsList = theOne.mEmployeeDB.getAllRecords();
-				
+
 				for(ArrayList<String> values : employeeResultsList) {
-					
+
 					int id = Integer.parseInt(values.get(0));
 					String name = values.get(1);
 					String user = values.get(2);
 					String role = values.get(3);
 					String email = values.get(4);
 					String password = values.get(5);
-					
+
 					theOne.mAllEmployeesList.add(new Employee(id, name, user, role, email, password));
-					
+
 				}
-				
+
 				// To create Customer Record Table
 				theOne.mCustomerRecordDB = new DBModel(DB_NAME, CUSTOMER_RECORD_TABLE_NAME, CUSTOMER_RECORD_FIELD_NAMES, CUSTOMER_RECORD_FIELD_TYPES);
 				ArrayList<ArrayList<String>> customerRecordResultsList = theOne.mCustomerRecordDB.getAllRecords();
-				
+
 				for(ArrayList<String> values : customerRecordResultsList) {
-					
+
 					int id = theOne.mCurrentCustomer.getmId();
 					double plastic = Double.parseDouble(values.get(2));
 					double aluminum = Double.parseDouble(values.get(3));
 					double glass = Double.parseDouble(values.get(4));
 					double money = Double.parseDouble(values.get(5));
-					
+
 					theOne.mAllCustomerRecordsList.add(new CustomerRecord(id, plastic, aluminum, glass, money));
-					
+
 				}
-				
+
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -194,7 +194,7 @@ public class Controller {
 
 		return "SUCCESS";
 	}
-	
+
 	public String employeeLogin(String userName, String password) {
 
 		for(Employee employee : theOne.mAllEmployeesList) {
@@ -224,11 +224,11 @@ public class Controller {
 
 		return "Wrong user name or/and password";
 	}
-	
+
 	public String employeeSignUp(String name, String user, String email, String password) {
 
-		
-		
+
+
 		//To check if the email is valid
 		if(!isValidEmail(email))
 			return "Email address is not valid. Please try again.";
@@ -265,43 +265,43 @@ public class Controller {
 
 		return "SUCCESS";
 	}
-	
+
 	public String recordCustomer(int id, double plastic, double aluminum, double glass, double money) {
-		
+
 		String[] values = {String.valueOf(id), String.valueOf(plastic), String.valueOf(aluminum), String.valueOf(glass), String.valueOf(money)};
-		
+
 		for(Customer c : mAllCustomersList) {
-			
-		
+
+
 			if(c.getmId() == id) {
-				
+
 				try {
 					theOne.mCustomerRecordDB.updateRecord(String.valueOf(id), CUSTOMER_RECORD_FIELD_NAMES, values);
 					theOne.mCurrentRecord = new CustomerRecord(id, plastic, aluminum, glass, money);
 					theOne.mAllCustomerRecordsList.add(theOne.mCurrentRecord);
-					
+
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				System.out.println(theOne.mCurrentRecord);
-					
-				
+
+
 			}
-			
+
 			/*
 				double totalPlastic = c.getPlastic() + plastic;
 				double totalAluminum = c.getAluminum() + aluminum;
 				double totalGlass = c.getGlass() + glass;
 				double totalMoney = c.getMoney() + money;
 			*/
-			
+
 		}// for ends
-		
-		
+
+
 		return "";
-		
+
 	}
 
 	public boolean isValidEmail(String email){
@@ -322,6 +322,6 @@ public class Controller {
     	return password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\\\|,.<>\\/?]).{8,16}$");
     }
 
-	
+
 
 }

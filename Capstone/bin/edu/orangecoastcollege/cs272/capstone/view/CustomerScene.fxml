@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" vgap="12.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.orangecoastcollege.cs272.capstone.view.CustomerScene">
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" vgap="12.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.orangecoastcollege.cs272.capstone.view.CustomerScene">
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
@@ -42,8 +42,7 @@
       <Label fx:id="GlassAmountLabel" prefHeight="17.0" prefWidth="107.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       <Label fx:id="TotalAmountLabel" prefHeight="17.0" prefWidth="113.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
       <Label fx:id="UserLabel" prefHeight="17.0" prefWidth="96.0" text="Name" GridPane.columnIndex="1" />
-      <Button mnemonicParsing="false" onAction="#DonationsChart" prefHeight="27.0" prefWidth="123.0" text="Donations Chart" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-      <Button mnemonicParsing="false" onAction="#LogOut" prefHeight="27.0" prefWidth="71.0" text="Log out" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#Close" prefHeight="27.0" prefWidth="69.0" text="Close" GridPane.columnIndex="4" GridPane.rowIndex="5" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
             <Button mnemonicParsing="false" onAction="#Calculate" prefHeight="27.0" prefWidth="96.0" text="Calculate" />
@@ -55,5 +54,11 @@
       <Label fx:id="GlassErrorLabel" prefHeight="17.0" prefWidth="102.0" text="Field Required" textFill="#f50606" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label fx:id="TotalErrorLabel" prefHeight="17.0" prefWidth="120.0" text="Field Required" textFill="#f50000" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <Label fx:id="MaterialsLabel" prefHeight="17.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+         <children>
+            <Button mnemonicParsing="false" onAction="#toInfo" text="View your info" />
+            <Button mnemonicParsing="false" onAction="#LogOut" prefHeight="27.0" prefWidth="71.0" text="Log out" />
+         </children>
+      </HBox>
    </children>
 </GridPane>
