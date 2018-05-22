@@ -2,37 +2,27 @@ package edu.orangecoastcollege.cs272.capstone.model;
 
 public class CustomerRecord {
 	
-	private int mId;
-	private String user;
+	private int customerId;
 	private double plastic;
 	private double aluminum;
 	private double glass;
 	private double money;
 	
-	public CustomerRecord(int mId, String user, double plastic, double aluminum, double glass, double money) {
+	public CustomerRecord(int customerId, double plastic, double aluminum, double glass, double money) {
 		super();
-		this.mId = mId;
-		this.user = user;
+		this.customerId = customerId;
 		this.plastic = plastic;
 		this.aluminum = aluminum;
 		this.glass = glass;
 		this.money = money;
 	}
 
-	public int getmId() {
-		return mId;
+	public int getCustomerId() {
+		return customerId;
 	}
 
-	public void setmId(int mId) {
-		this.mId = mId;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 	public double getPlastic() {
@@ -74,14 +64,13 @@ public class CustomerRecord {
 		long temp;
 		temp = Double.doubleToLongBits(aluminum);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + customerId;
 		temp = Double.doubleToLongBits(glass);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + mId;
 		temp = Double.doubleToLongBits(money);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(plastic);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -96,28 +85,25 @@ public class CustomerRecord {
 		CustomerRecord other = (CustomerRecord) obj;
 		if (Double.doubleToLongBits(aluminum) != Double.doubleToLongBits(other.aluminum))
 			return false;
-		if (Double.doubleToLongBits(glass) != Double.doubleToLongBits(other.glass))
+		if (customerId != other.customerId)
 			return false;
-		if (mId != other.mId)
+		if (Double.doubleToLongBits(glass) != Double.doubleToLongBits(other.glass))
 			return false;
 		if (Double.doubleToLongBits(money) != Double.doubleToLongBits(other.money))
 			return false;
 		if (Double.doubleToLongBits(plastic) != Double.doubleToLongBits(other.plastic))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "CustomerRecord [mId=" + mId + ", user=" + user + ", plastic=" + plastic + ", aluminum=" + aluminum
+		return "CustomerRecord [customerId=" + customerId + ", plastic=" + plastic + ", aluminum=" + aluminum
 				+ ", glass=" + glass + ", money=" + money + "]";
 	}
 	
 	
-
+	
+	
+	
 }

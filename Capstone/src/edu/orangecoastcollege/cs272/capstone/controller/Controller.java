@@ -24,7 +24,7 @@ public class Controller {
 	private static final String[] CUSTOMER_FIELD_NAMES = {"_id", "name",  "user", "role", "email", "password"};
 	private static final String[] CUSTOMER_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"};
 
-	private Customer mCurrentCustomer;
+	public Customer mCurrentCustomer;
 	private DBModel mCustomerDB;
 	
 	// For Employee Table to login
@@ -38,8 +38,8 @@ public class Controller {
 	
 	// For Customer Record Table
 	private static final String CUSTOMER_RECORD_TABLE_NAME = "customerRecord";
-	private static final String[] CUSTOMER_RECORD_FIELD_NAMES = {"_id", "user", "plastic", "aluminum", "glass", "money"};
-	private static final String[] CUSTOMER_RECORD_FIELD_TYPES = {"INTEGER PRIMARY KEY", "TEXT", "REAL", "REAL", "REAL", "REAL"};
+	private static final String[] CUSTOMER_RECORD_FIELD_NAMES = {"_id", "plastic", "aluminum", "glass", "money"};
+	private static final String[] CUSTOMER_RECORD_FIELD_TYPES = {"INTEGER PRIMARY KEY", "REAL", "REAL", "REAL", "REAL"};
 	
 	private CustomerRecord mCurrentRecord;
 	private DBModel mCustomerRecordDB;
@@ -102,14 +102,13 @@ public class Controller {
 				
 				for(ArrayList<String> values : customerRecordResultsList) {
 					
-					int id = Integer.parseInt(values.get(0));
-					String user = values.get(1);
+					int id = theOne.mCurrentCustomer.getmId();
 					double plastic = Double.parseDouble(values.get(2));
 					double aluminum = Double.parseDouble(values.get(3));
 					double glass = Double.parseDouble(values.get(4));
 					double money = Double.parseDouble(values.get(5));
 					
-					theOne.mAllCustomerRecordsList.add(new CustomerRecord(id, user, plastic, aluminum, glass, money));
+					theOne.mAllCustomerRecordsList.add(new CustomerRecord(id, plastic, aluminum, glass, money));
 					
 				}
 				
@@ -267,51 +266,40 @@ public class Controller {
 		return "SUCCESS";
 	}
 	
-	public String recordCustomer(String user, double plastic, double aluminum, double glass, double money) {
+	public String recordCustomer(int id, double plastic, double aluminum, double glass, double money) {
 		
-		/* if record exists, update. else create record
-		for(CustomerRecord c : theOne.mAllCustomerRecordsList) {
+		String[] values = {String.valueOf(id), String.valueOf(plastic), String.valueOf(aluminum), String.valueOf(glass), String.valueOf(money)};
 		
-			if(c.getUser().equalsIgnoreCase(user)) {
+		for(Customer c : mAllCustomersList) {
+			
+		
+			if(c.getmId() == id) {
 				
-				String[] values = {user, String.valueOf(plastic), String.valueOf(aluminum), String.valueOf(glass), String.valueOf(money)};
-
 				try {
-
-					int id = theOne.mCustomerRecordDB.createRecord(Arrays.copyOfRange(CUSTOMER_RECORD_FIELD_NAMES, 1, CUSTOMER_RECORD_FIELD_NAMES.length), values);
-
-					theOne.mCurrentRecord = new CustomerRecord(id, user, plastic, aluminum, glass, money);
+					theOne.mCustomerRecordDB.updateRecord(String.valueOf(id), CUSTOMER_RECORD_FIELD_NAMES, values);
+					theOne.mCurrentRecord = new CustomerRecord(id, plastic, aluminum, glass, money);
 					theOne.mAllCustomerRecordsList.add(theOne.mCurrentRecord);
-					System.out.println(theOne.mAllCustomerRecordsList);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			}else {
-				
-				double totalPlastic = c.getPlastic() + plastic;
-				double totalAluminum = c.getAluminum() + aluminum;
-				double totalGlass = c.getGlass() + glass;
-				double totalMoney = c.getMoney() + money;
-				
-				String[] values = {user, String.valueOf(totalPlastic), String.valueOf(totalAluminum), String.valueOf(totalGlass), String.valueOf(totalMoney)};
-				System.out.println(values);
-				
-				try {
-					
-					theOne.mCustomerRecordDB.updateRecord(user, CUSTOMER_RECORD_FIELD_NAMES, values);
-					System.out.println(theOne.mAllCustomerRecordsList);
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
+				System.out.println(theOne.mCurrentRecord);
+					
+				
 			}
+			
+			/*
+				double totalPlastic = c.getPlastic() + plastic;
+				double totalAluminum = c.getAluminum() + aluminum;
+				double totalGlass = c.getGlass() + glass;
+				double totalMoney = c.getMoney() + money;
+			*/
 			
 		}// for ends
 		
-		*/
+		
 		return "";
 		
 	}
